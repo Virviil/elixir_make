@@ -190,6 +190,8 @@ defmodule Mix.Tasks.Compile.ElixirMake do
     base = exec |> Path.basename() |> Path.rootname()
     args = args_for_makefile(base, makefile) ++ targets ++ custom_args
 
+    IO.inspect(args, label: "Args for makefile")
+
     case cmd(exec, args, cwd, env, "--verbose" in task_args) do
       0 ->
         :ok
