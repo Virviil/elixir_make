@@ -292,21 +292,23 @@ defmodule Mix.Tasks.Compile.ElixirMake do
         # Don't use Mix.target/0 here for backwards compatability
         "MIX_TARGET" => env("MIX_TARGET", "host"),
         "MIX_ENV" => to_string(Mix.env()),
-        "MIX_BUILD_PATH" => Mix.Project.build_path(config),
-        "MIX_APP_PATH" => Mix.Project.app_path(config),
-        "MIX_COMPILE_PATH" => Mix.Project.compile_path(config),
-        "MIX_CONSOLIDATION_PATH" => Mix.Project.consolidation_path(config),
-        "MIX_DEPS_PATH" => Mix.Project.deps_path(config),
-        "MIX_MANIFEST_PATH" => Mix.Project.manifest_path(config),
+
+        # Pathes here
+        "MIX_BUILD_PATH" => Path.expand(Mix.Project.build_path(config)),
+        "MIX_APP_PATH" => Path.expand(Mix.Project.app_path(config)),
+        "MIX_COMPILE_PATH" => Path.expand(Mix.Project.compile_path(config)),
+        "MIX_CONSOLIDATION_PATH" => Path.expand(Mix.Project.consolidation_path(config)),
+        "MIX_DEPS_PATH" => Path.expand(Mix.Project.deps_path(config)),
+        "MIX_MANIFEST_PATH" => Path.expand(Mix.Project.manifest_path(config)),
 
         # Rebar naming
-        "ERL_EI_LIBDIR" => env("ERL_EI_LIBDIR", erl_ei_lib_dir),
-        "ERL_EI_INCLUDE_DIR" => env("ERL_EI_INCLUDE_DIR", erl_ei_include_dir),
+        "ERL_EI_LIBDIR" => Path.expand(env("ERL_EI_LIBDIR", erl_ei_lib_dir)),
+        "ERL_EI_INCLUDE_DIR" => Path.expand(env("ERL_EI_INCLUDE_DIR", erl_ei_include_dir)),
 
         # erlang.mk naming
-        "ERTS_INCLUDE_DIR" => env("ERTS_INCLUDE_DIR", erts_include_dir),
-        "ERL_INTERFACE_LIB_DIR" => env("ERL_INTERFACE_LIB_DIR", erl_ei_lib_dir),
-        "ERL_INTERFACE_INCLUDE_DIR" => env("ERL_INTERFACE_INCLUDE_DIR", erl_ei_include_dir)
+        "ERTS_INCLUDE_DIR" => Path.expand(env("ERTS_INCLUDE_DIR", erts_include_dir)),
+        "ERL_INTERFACE_LIB_DIR" => Path.expand(env("ERL_INTERFACE_LIB_DIR", erl_ei_lib_dir)),
+        "ERL_INTERFACE_INCLUDE_DIR" => Path.expand(env("ERL_INTERFACE_INCLUDE_DIR", erl_ei_include_dir))
       },
       default_env
     )
