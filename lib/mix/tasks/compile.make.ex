@@ -143,12 +143,22 @@ defmodule Mix.Tasks.Compile.ElixirMake do
     Mix.Project.ensure_structure()
     build(config, args)
 
+    IO.puts("My file exists?: #{File.exists?("/Users/virviil/dev/erlang/my_app/_build/default/lib/circuits_uart/priv")}")
+    IO.inspect("Trying to copy file")
+    File.cp_r!(
+      "/Users/virviil/dev/erlang/my_app/_build/default/lib/circuits_uart/priv",
+      "/Users/virviil/dev/erlang/my_app/_build/default/lib/circuits_uart/../../lib/circuits_uart/priv"
+    )
+    IO.puts("File copied...")
+    IO.inspect(Mix.Project.app_path(Mix.Project.config()))
+
     # IF there was no priv before and now there is one, we assume
     # the user wants to copy it. If priv already existed and was
     # written to it, then it won't be copied if build_embedded is
     # set to true.
     if not priv? and File.dir?("priv") do
-      Mix.Project.build_structure()
+      IO.inspect("Building structure...")
+      # Mix.Project.build_structure()
     end
 
     @return
