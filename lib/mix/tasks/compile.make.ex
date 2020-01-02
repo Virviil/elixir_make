@@ -136,6 +136,7 @@ defmodule Mix.Tasks.Compile.ElixirMake do
 
   @spec run(OptionParser.argv()) :: :ok | no_return
   def run(args) do
+    IO.puts("Running make compile with args: #{inspect(args)}")
     config = Mix.Project.config()
     Mix.shell().print_app()
     priv? = File.dir?("priv")
