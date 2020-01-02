@@ -176,7 +176,7 @@ defmodule Mix.Tasks.Compile.ElixirMake do
     targets = Keyword.get(config, :make_targets, [])
     env = Keyword.get(config, :make_env, %{})
     env = if is_function(env), do: env.(), else: env
-    env = default_env(config, env)
+    env = default_env(config, env) |> IO.inspect(label: "Exporting environment")
 
     # In OTP 19, Erlang's `open_port/2` ignores the current working
     # directory when expanding relative paths. This means that `:make_cwd`
